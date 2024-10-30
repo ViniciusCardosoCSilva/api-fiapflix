@@ -11,6 +11,14 @@ INSERT INTO tb_filme(titulo, ano, genero_id) VALUES('Titanic', 2005, 2);
 
 INSERT INTO tb_review(texto, filme_id, user_id ) VALUES('Muito bom', 1, 1);
 INSERT INTO tb_review(texto, filme_id, user_id ) VALUES('Engraçado', 2, 2);
+
+INSERT INTO tb_role(authority) VALUES('ROLE_ADMIN');
+INSERT INTO tb_role(authority) VALUES('ROLE_MEMBER');
+
+INSERT INTO tb_user_role(user_id, role_id) VALUES(1,1);
+INSERT INTO tb_user_role(user_id, role_id) VALUES(1,2);
+INSERT INTO tb_user_role(user_id, role_id) VALUES(2,2);
+
 --
 -- create table tb_filme (
 --        ano integer,

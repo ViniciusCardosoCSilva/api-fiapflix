@@ -2,6 +2,7 @@ package br.com.fiap.api_fiapflix.service;
 
 
 import br.com.fiap.api_fiapflix.dto.ReviewDTO;
+import br.com.fiap.api_fiapflix.model.Filme;
 import br.com.fiap.api_fiapflix.model.Review;
 import br.com.fiap.api_fiapflix.model.User;
 import br.com.fiap.api_fiapflix.repository.FilmeRepository;
@@ -84,5 +85,25 @@ public class ReviewService {
         } catch (DataIntegrityViolationException e) {
             throw new DatabaseException("Falha de integridade referencial");
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<ReviewDTO> findByFilme(Long filmeId){
+        if(!filmeRepository.existsById(filmeId)){
+            throw new ResourceNotFoundException("Recurso não encontrato");
+        }
+        Filme filme = filmeRepository.getReferenceById(filmeId);
+        List<Review> reviewList = reviewRepository.findByFilme(filme);
+        return reviewList.stream().map(ReviewDTO::new).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<ReviewDTO> findByUser(Long userId){
+        if(!userRepository.existsById(userId)){
+            throw new ResourceNotFoundException("Recurso não encontrado");
+        }
+        User user = userRepository.getReferenceById(userId);
+        List<Review> reviewList = reviewRepository.findByUser(user);
+        return reviewList.stream().map(ReviewDTO::new).toList();
     }
 }

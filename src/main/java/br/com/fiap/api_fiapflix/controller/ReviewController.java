@@ -54,4 +54,17 @@ public class ReviewController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/filme/{id}")
+    public ResponseEntity<List<ReviewDTO>> findByFilme(@PathVariable Long id){
+        List<ReviewDTO> dto = service.findByFilme(id);
+        return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<ReviewDTO>> findByUser(@PathVariable Long id){
+        List<ReviewDTO> dto = service.findByUser(id);
+        return ResponseEntity.ok(dto);
+    }
+
 }
